@@ -60,9 +60,19 @@ export abstract class Produto {
 
     public visualizar(): void {
         console.log(colors.fg.magenta + "\n" + "=".repeat(25) + "❀ Dados do Produto ❀" + "=".repeat(26) + "\n" + colors.reset)
-        console.log("Numero do Id: " + this._id)
+        console.log("Id do produto: " + this._id)
         console.log("Nome: " + this._nome)
-        console.log("Tipo: " + (this._tipo))
+
+		// Para mostrar no console o tipo do produto, ao invés de apenas o número
+		switch (this.tipo) {
+			case 1:
+				console.log("Tipo: Maquiagem")
+                break;
+            case 2:
+				console.log("Tipo: Skincare")
+				break;
+		}
+	
         console.log("Preco: R$ " + this._preco.toFixed(2))
         console.log("Volume: " + this._volume + " mL")
     }

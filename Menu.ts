@@ -1,9 +1,21 @@
 import readlinesync = require('readline-sync');
 import { colors } from './util/cores';
+import { ProdutoController } from './controller/ProdutoController';
+import { Maquiagem } from './model/Maquiagem';
+import { Skincare } from './model/Skincare';
 
 
 export function main() {
-    
+    let id, tipo, preco, volume: number;
+    let nome: string;
+
+    // Definição dos tipos de produtos disponíveis
+   const tipoProduto = ['Maquiagem', 'Skincare']
+   const acabamentoMaq = ["Branco", "Transparente", "Matte", "Cintilante"]
+
+   // Instancia o controller de produtos, que gerencia as operações sobre os produtos
+   let produtos = new ProdutoController();
+
    while (true) {
     menu()
     let opcao = readlinesync.questionInt("")
@@ -11,10 +23,36 @@ export function main() {
     switch (opcao) {
     case 1:
         // Cadastrar um produto novo
+        nome = readlinesync.question("\nNome do produto: ")
+        preco = readlinesync.questionFloat("Preço do produto: ")
+        volume = readlinesync.questionInt("Volume do produto: ")
+
+        // Escolha do tipo de produto
+        tipo = readlinesync.keyInSelect(tipoProduto, "", { cancel : false}) + 1;
+
+        switch(tipo) {
+            case 1:
+                // Maquiagem
+                const cor = readlinesync.question("\nCor do produto: ")
+            
+                // Escolha do tipo de acabamento da maquiagem
+                const acabamento = readlinesync.keyInSelect(acabamentoMaq, "", { cancel : false}) + 1;
+
+                produtos.criar(new Maquiagem(produtos.gerarId(), nome, tipo, preco, volume, cor, acabamento))
+            break;
+            case 2:
+                // Skincare
+                console.log("\nDigite a propriedade principal do produto: " )
+                const propriedade = readlinesync.question("")
+
+                produtos.criar(new Skincare(produtos.gerarId(), nome, tipo, preco, volume, propriedade))
+            break;
+        }
         keyPress();
         break
     case 2:
         // Listar todos os produtos
+        produtos.listar();
         keyPress();
         break
     case 3:
