@@ -4,7 +4,6 @@ import { ProdutoController } from './controller/ProdutoController';
 import { Maquiagem } from './model/Maquiagem';
 import { Skincare } from './model/Skincare';
 
-
 export function main() {
     let id, tipo, preco, volume: number;
     let nome: string;
@@ -42,8 +41,7 @@ export function main() {
             break;
             case 2:
                 // Skincare
-                console.log("\nDigite a propriedade principal do produto: " )
-                const propriedade = readlinesync.question("")
+                const propriedade = readlinesync.question("\nDigite a propriedade principal do produto: ")
 
                 produtos.criar(new Skincare(produtos.gerarId(), nome, tipo, preco, volume, propriedade))
             break;
@@ -57,14 +55,42 @@ export function main() {
         break
     case 3:
         // Pesquisar um produto por ID
+        id = readlinesync.questionInt("\nID do produto: ")
+        produtos.pesquisar(id)
         keyPress();
         break
     case 4:
         // Atualizar um produto por ID
+        id = readlinesync.questionInt("\nID do produto: ")
+        const produtoExistente = produtos.buscarId(id);
+
+        // Verifica se o produto existe para ser atualizado
+        if(produtoExistente) { 
+            nome = readlinesync.question("\nNovo nome do produto: ")
+            preco = readlinesync.questionFloat("Novo preço do produto: ")
+            volume = readlinesync.questionInt("Novo volume do produto: ")
+
+            // Verifica o tipo do produto para atualizar o objeto baseado no tipo dele 
+            if (produtoExistente.tipo === 1) {
+                const cor = readlinesync.question("\nCor do produto: ")
+                const acabamento = readlinesync.keyInSelect(acabamentoMaq, "", { cancel : false}) + 1;
+
+                produtos.atualizar(new Maquiagem(id, nome, produtoExistente.tipo, preco, volume, cor, acabamento));
+            } else if (produtoExistente.tipo === 2) {
+                const propriedade = readlinesync.question("\nDigite a propriedade principal do produto: ");
+
+                produtos.atualizar(new Skincare(id, nome, produtoExistente.tipo, preco, volume, propriedade));
+            }
+        } else {
+            console.log(`Produto com ID ${id} não encontrado.`);
+        }
+
         keyPress();
         break
     case 5:
         // Deletar um produto por ID
+        id = readlinesync.questionInt("ID do produto: ");
+        produtos.deletar(id);
         keyPress();
         break
     case 0:
