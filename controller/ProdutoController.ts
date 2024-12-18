@@ -46,7 +46,7 @@ export class ProdutoController implements ProdutoRepository {
             console.log(`\nProduto com ID ${id} não encontrado.`);
         }
     }
-    
+
     atualizar(produto: Produto): void {
         const buscarProduto = this.buscarId(produto.id);
 
