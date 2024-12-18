@@ -1,3 +1,4 @@
+import { Maquiagem } from "../model/Maquiagem";
 import { Produto } from "../model/Produto";
 import { ProdutoRepository } from "../repository/ProdutoRepository";
 
@@ -47,6 +48,22 @@ export class ProdutoController implements ProdutoRepository {
         }
     }
 
+    pesquisarPorCor(cor: string): void {
+    // Filtra apenas os produtos que são do tipo Maquiagem e possuem a cor correspondente
+    const maquiagensComCor = this.listaProdutos.filter(produto => 
+        produto instanceof Maquiagem && produto.cor.toLowerCase() === cor.toLowerCase()
+    );
+
+    // Exibe os resultados
+    if (maquiagensComCor.length > 0) {
+        console.log(`Produtos encontrados com a cor "${cor}":`);
+        maquiagensComCor.forEach(produto => produto.visualizar());
+    } else {
+        console.log(`Nenhuma maquiagem encontrada com a cor "${cor}".`);
+    }
+}
+
+    
     atualizar(produto: Produto): void {
         const buscarProduto = this.buscarId(produto.id);
 

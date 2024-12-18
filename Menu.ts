@@ -79,6 +79,11 @@ export function main() {
         keyPress();
         break
     case 6:
+        const corPesquisada = readlinesync.question("\nDigite a cor que deseja pesquisar: ");
+        produtos.pesquisarPorCor(corPesquisada);
+        keyPress();
+        break;  
+    case 7:
         // Atualizar um produto por ID
         id = readlinesync.questionInt("\nID do produto a ser atualizado: ")
         const produtoExistente = produtos.buscarId(id);
@@ -106,7 +111,7 @@ export function main() {
 
         keyPress();
         break
-    case 7:
+    case 8:
         // Deletar um produto por ID
         id = readlinesync.questionInt("ID do produto a ser deletado: ");
         produtos.deletar(id);
@@ -132,8 +137,9 @@ function menu(): void {
     console.log("   3 - Listar apenas os produtos de Maquiagem")
     console.log("   4 - Listar apenas os produtos de Skincare")
     console.log("   5 - Pesquisar produto por id")
-    console.log("   6 - Atualizar produto")
-    console.log("   7 - Deletar produto")
+    console.log("   6 - Pesquisar maquiagem por cor")
+    console.log("   7 - Atualizar produto")
+    console.log("   8 - Deletar produto")
     console.log("   0 - Sair")
 
     console.log(colors.fg.magenta + "\n","-".repeat(69) ,"\n" + colors.reset)

@@ -6,6 +6,7 @@ export interface ProdutoRepository {
     listarMaquiagens(): void;
     listarSkincare(): void;
     pesquisar(id: number): void; // Equivalente ao "listar produto pelo id" na documentação da atividade
+    pesquisarPorCor(cor: string): void;
     atualizar(produto: Produto): void;
     deletar(id: number): void;
 }
