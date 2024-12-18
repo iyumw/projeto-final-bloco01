@@ -15,6 +15,15 @@ export function main() {
    // Instancia o controller de produtos, que gerencia as operações sobre os produtos
    let produtos = new ProdutoController();
 
+    //Novas Instâncias da Classe Maquiagem (Objetos)
+    produtos.criar(new Maquiagem(produtos.gerarId(), "Batom Vermelho", 1, 19.99, 5, "Vermelho", 3));
+    produtos.criar(new Maquiagem(produtos.gerarId(), "Sombra Azul", 1, 25.50, 10, "Azul", 4));
+
+    // Novas Instâncias da Classe Skincare (Objetos)
+    produtos.criar(new Skincare(produtos.gerarId(), "Hidratante Facial", 2, 12.99, 15, "Hidratação Profunda"));
+    produtos.criar(new Skincare(produtos.gerarId(), "Protetor Solar FPS50", 2, 18.99, 20, "Proteção contra raios UVA/UVB"));
+
+
    while (true) {
     menu()
     let opcao = readlinesync.questionInt("")
@@ -54,14 +63,24 @@ export function main() {
         keyPress();
         break
     case 3:
-        // Pesquisar um produto por ID
-        id = readlinesync.questionInt("\nID do produto: ")
-        produtos.pesquisar(id)
+        // Listar todos os produtos de maquiagem
+        produtos.listarMaquiagens();
         keyPress();
         break
     case 4:
+        // Listar todos os produtos de skincare
+        produtos.listarSkincare();
+        keyPress();
+        break
+    case 5:
+        // Pesquisar um produto por ID
+        id = readlinesync.questionInt("\nID do produto a ser pesquisado: ")
+        produtos.pesquisar(id);
+        keyPress();
+        break
+    case 6:
         // Atualizar um produto por ID
-        id = readlinesync.questionInt("\nID do produto: ")
+        id = readlinesync.questionInt("\nID do produto a ser atualizado: ")
         const produtoExistente = produtos.buscarId(id);
 
         // Verifica se o produto existe para ser atualizado
@@ -72,12 +91,12 @@ export function main() {
 
             // Verifica o tipo do produto para atualizar o objeto baseado no tipo dele 
             if (produtoExistente.tipo === 1) {
-                const cor = readlinesync.question("\nCor do produto: ")
+                const cor = readlinesync.question("\nNova cor do produto: ")
                 const acabamento = readlinesync.keyInSelect(acabamentoMaq, "", { cancel : false}) + 1;
 
                 produtos.atualizar(new Maquiagem(id, nome, produtoExistente.tipo, preco, volume, cor, acabamento));
             } else if (produtoExistente.tipo === 2) {
-                const propriedade = readlinesync.question("\nDigite a propriedade principal do produto: ");
+                const propriedade = readlinesync.question("\nDigite a nova propriedade principal do produto: ");
 
                 produtos.atualizar(new Skincare(id, nome, produtoExistente.tipo, preco, volume, propriedade));
             }
@@ -87,9 +106,9 @@ export function main() {
 
         keyPress();
         break
-    case 5:
+    case 7:
         // Deletar um produto por ID
-        id = readlinesync.questionInt("ID do produto: ");
+        id = readlinesync.questionInt("ID do produto a ser deletado: ");
         produtos.deletar(id);
         keyPress();
         break
@@ -110,9 +129,11 @@ function menu(): void {
     console.log(colors.fg.magentastrong + "\n" + "=".repeat(28) + "❀ Velvet Yume ❀" + "=".repeat(27) + "\n" + colors.reset);
     console.log("   1 - Criar Produto")
     console.log("   2 - Listar todos os produtos")
-    console.log("   3 - Pesquisar produto por id")
-    console.log("   4 - Atualizar produto")
-    console.log("   5 - Deletar produto")
+    console.log("   3 - Listar apenas os produtos de Maquiagem")
+    console.log("   4 - Listar apenas os produtos de Skincare")
+    console.log("   5 - Pesquisar produto por id")
+    console.log("   6 - Atualizar produto")
+    console.log("   7 - Deletar produto")
     console.log("   0 - Sair")
 
     console.log(colors.fg.magenta + "\n","-".repeat(69) ,"\n" + colors.reset)

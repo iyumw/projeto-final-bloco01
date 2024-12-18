@@ -13,7 +13,7 @@ export class ProdutoController implements ProdutoRepository {
 
     criar(produto: Produto): void {
         this.listaProdutos.push(produto)
-        console.log(`Novo produto criado: ${produto.nome}`);
+        console.log(`\nNovo produto criado: ${produto.nome}`);
     }
     listar(): void {
         // Percorre a lista de produtos, e apresenta cada produto da lista no console
@@ -21,15 +21,32 @@ export class ProdutoController implements ProdutoRepository {
             produto.visualizar();
         });
     }
+    listarMaquiagens(): void{
+        const maquiagens = this.listaProdutos.filter(produto => produto.tipo === 1); // Tipo 1 é Maquiagem
+        if (maquiagens.length > 0) {
+            maquiagens.forEach(produto => produto.visualizar());
+        } else {
+            console.log("\nNenhuma maquiagem cadastrada.");
+        }
+    }
+    listarSkincare(): void {
+        const skincare = this.listaProdutos.filter(produto => produto.tipo === 2); // Tipo 2 é Skincare
+        if (skincare.length > 0) {
+            skincare.forEach(produto => produto.visualizar());
+        } else {
+            console.log("\nNenhum produto de skincare cadastrado.");
+        }
+    }
     pesquisar(id: number): void {
         const buscarProduto = this.buscarId(id);
 
         if(buscarProduto !== null) {
             buscarProduto.visualizar();
         } else {
-            console.log(`Produto com ID ${id} não encontrado.`);
+            console.log(`\nProduto com ID ${id} não encontrado.`);
         }
     }
+    
     atualizar(produto: Produto): void {
         const buscarProduto = this.buscarId(produto.id);
 
@@ -37,7 +54,7 @@ export class ProdutoController implements ProdutoRepository {
             // Atualiza o produto na lista, substituindo o antigo pelo novo, a partir do índice do produto
             this.listaProdutos[this.listaProdutos.indexOf(buscarProduto)] = produto;
         } else {
-            console.log(`Produto com ID ${produto.id} não encontrado.`);
+            console.log(`\nProduto com ID ${produto.id} não encontrado.`);
         }
     }
     deletar(id: number): void {
@@ -45,9 +62,9 @@ export class ProdutoController implements ProdutoRepository {
 
         if(buscarProduto!== null) {
             this.listaProdutos.splice(this.listaProdutos.indexOf(buscarProduto), 1);
-            console.log(`Produto com ID ${id} deletado.`);
+            console.log(`\nProduto com ID ${id} deletado.`);
         } else {
-            console.log(`Produto com ID ${id} não encontrado.`);
+            console.log(`\nProduto com ID ${id} não encontrado.`);
         }
     }
 
