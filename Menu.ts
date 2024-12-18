@@ -113,7 +113,7 @@ export function main() {
         break
     case 8:
         // Deletar um produto por ID
-        id = readlinesync.questionInt("ID do produto a ser deletado: ");
+        id = readlinesync.questionInt("\nID do produto a ser deletado: ");
         produtos.deletar(id);
         keyPress();
         break
@@ -157,7 +157,7 @@ function about() {
 
 // Função que aguarda o pressionamento de uma tecla para continuar
 function keyPress(): void {
-    console.log("\nPressione enter para continuar...")
+    console.log(colors.fg.blue + "\nPressione enter para continuar..." + colors.reset)
     readlinesync.prompt(); // Aguarda o usuário pressionar Enter
 }
 

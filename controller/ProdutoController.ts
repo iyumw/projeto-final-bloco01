@@ -1,6 +1,7 @@
 import { Maquiagem } from "../model/Maquiagem";
 import { Produto } from "../model/Produto";
 import { ProdutoRepository } from "../repository/ProdutoRepository";
+import { colors } from "../util/cores";
 
 // Gerencia a lógica de negócios dos produtos
 // e implementa a interface ProdutoRepository para garantir que os métodos sejam definidos
@@ -14,7 +15,7 @@ export class ProdutoController implements ProdutoRepository {
 
     criar(produto: Produto): void {
         this.listaProdutos.push(produto)
-        console.log(`\nNovo produto criado: ${produto.nome}`);
+        console.log(colors.fg.cyanstrong + `\nNovo produto criado: ${produto.nome}` + colors.reset);
     }
     listar(): void {
         // Percorre a lista de produtos, e apresenta cada produto da lista no console
@@ -27,7 +28,7 @@ export class ProdutoController implements ProdutoRepository {
         if (maquiagens.length > 0) {
             maquiagens.forEach(produto => produto.visualizar());
         } else {
-            console.log("\nNenhuma maquiagem cadastrada.");
+            console.log(colors.fg.redstrong + "\nNenhuma maquiagem cadastrada." + colors.reset);
         }
     }
     listarSkincare(): void {
@@ -35,7 +36,7 @@ export class ProdutoController implements ProdutoRepository {
         if (skincare.length > 0) {
             skincare.forEach(produto => produto.visualizar());
         } else {
-            console.log("\nNenhum produto de skincare cadastrado.");
+            console.log(colors.fg.redstrong + "\nNenhum produto de skincare cadastrado." + colors.reset);
         }
     }
     pesquisar(id: number): void {
@@ -44,7 +45,7 @@ export class ProdutoController implements ProdutoRepository {
         if(buscarProduto !== null) {
             buscarProduto.visualizar();
         } else {
-            console.log(`\nProduto com ID ${id} não encontrado.`);
+            console.log(colors.fg.redstrong + `\nProduto com ID ${id} não encontrado.` + colors.reset);
         }
     }
 
@@ -56,10 +57,10 @@ export class ProdutoController implements ProdutoRepository {
 
     // Exibe os resultados
     if (maquiagensComCor.length > 0) {
-        console.log(`Produtos encontrados com a cor "${cor}":`);
+        console.log(colors.fg.cyanstrong + `\nProdutos encontrados com a cor "${cor}":` + colors.reset);
         maquiagensComCor.forEach(produto => produto.visualizar());
     } else {
-        console.log(`Nenhuma maquiagem encontrada com a cor "${cor}".`);
+        console.log(colors.fg.redstrong + `\nNenhuma maquiagem encontrada com a cor "${cor}".` + colors.reset);
     }
 }
 
@@ -71,7 +72,7 @@ export class ProdutoController implements ProdutoRepository {
             // Atualiza o produto na lista, substituindo o antigo pelo novo, a partir do índice do produto
             this.listaProdutos[this.listaProdutos.indexOf(buscarProduto)] = produto;
         } else {
-            console.log(`\nProduto com ID ${produto.id} não encontrado.`);
+            console.log(colors.fg.redstrong + `\nProduto com ID ${produto.id} não encontrado.` + colors.reset);
         }
     }
     deletar(id: number): void {
@@ -79,9 +80,9 @@ export class ProdutoController implements ProdutoRepository {
 
         if(buscarProduto!== null) {
             this.listaProdutos.splice(this.listaProdutos.indexOf(buscarProduto), 1);
-            console.log(`\nProduto com ID ${id} deletado.`);
+            console.log(colors.fg.cyanstrong + `\nProduto com ID ${id} deletado.` + colors.reset);
         } else {
-            console.log(`\nProduto com ID ${id} não encontrado.`);
+            console.log(colors.fg.redstrong + `\nProduto com ID ${id} não encontrado.` + colors.reset);
         }
     }
 
