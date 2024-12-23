@@ -11,6 +11,7 @@ Este projeto é uma aplicação de CRUD (Create, Read, Update, Delete) desenvolv
 - Skincare (subclasse): Extensão da classe Produto, focada em produtos de cuidados com a pele.
 
 A aplicação apresenta uma interface de terminal interativa que permite o gerenciamento completo dos produtos.
+
 ![Menu Interativo](assets/menu.png)
 
 
