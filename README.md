@@ -9,7 +9,10 @@ Este projeto é uma aplicação de CRUD (Create, Read, Update, Delete) desenvolv
 - Produto (classe base): Representa a entidade genérica de um produto.
 - Maquiagem (subclasse): Extensão da classe Produto, com características específicas para itens de maquiagem.
 - Skincare (subclasse): Extensão da classe Produto, focada em produtos de cuidados com a pele.
+
 A aplicação apresenta uma interface de terminal interativa que permite o gerenciamento completo dos produtos.
+![Menu Interativo](assets/menu.png)
+
 
 ## Funcionalidades
 
